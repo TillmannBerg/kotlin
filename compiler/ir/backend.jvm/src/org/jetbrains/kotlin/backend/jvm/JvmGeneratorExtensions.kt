@@ -15,11 +15,10 @@ import org.jetbrains.kotlin.load.java.descriptors.JavaClassDescriptor
 import org.jetbrains.kotlin.load.java.sam.SamAdapterDescriptor
 import org.jetbrains.kotlin.load.java.sam.SamConstructorDescriptor
 import org.jetbrains.kotlin.load.java.sam.SingleAbstractMethodUtils
-import org.jetbrains.kotlin.load.kotlin.sam.SamConversionResolverImpl
-import org.jetbrains.kotlin.load.kotlin.sam.getFunctionTypeForAbstractMethod
-import org.jetbrains.kotlin.load.kotlin.sam.getSingleAbstractMethodOrNull
 import org.jetbrains.kotlin.psi2ir.generators.GeneratorExtensions
 import org.jetbrains.kotlin.resolve.jvm.annotations.hasJvmFieldAnnotation
+import org.jetbrains.kotlin.resolve.sam.getFunctionTypeForAbstractMethod
+import org.jetbrains.kotlin.resolve.sam.getSingleAbstractMethodOrNull
 import org.jetbrains.kotlin.synthetic.SamAdapterExtensionFunctionDescriptor
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.TypeSubstitutor
