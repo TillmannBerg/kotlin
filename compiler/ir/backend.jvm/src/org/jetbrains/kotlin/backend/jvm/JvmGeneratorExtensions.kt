@@ -15,6 +15,9 @@ import org.jetbrains.kotlin.load.java.descriptors.JavaClassDescriptor
 import org.jetbrains.kotlin.load.java.sam.SamAdapterDescriptor
 import org.jetbrains.kotlin.load.java.sam.SamConstructorDescriptor
 import org.jetbrains.kotlin.load.java.sam.SingleAbstractMethodUtils
+import org.jetbrains.kotlin.load.kotlin.sam.SamConversionResolverImpl
+import org.jetbrains.kotlin.load.kotlin.sam.getFunctionTypeForAbstractMethod
+import org.jetbrains.kotlin.load.kotlin.sam.getSingleAbstractMethodOrNull
 import org.jetbrains.kotlin.psi2ir.generators.GeneratorExtensions
 import org.jetbrains.kotlin.resolve.jvm.annotations.hasJvmFieldAnnotation
 import org.jetbrains.kotlin.synthetic.SamAdapterExtensionFunctionDescriptor
@@ -50,9 +53,9 @@ object JvmGeneratorExtensions : GeneratorExtensions() {
         override fun getSubstitutedFunctionTypeForSamType(samType: KotlinType): KotlinType {
             val descriptor = samType.constructor.declarationDescriptor as? JavaClassDescriptor
                 ?: throw AssertionError("SAM should be represented by a Java class: $samType")
-            val singleAbstractMethod = SingleAbstractMethodUtils.getSingleAbstractMethodOrNull(descriptor)
+            val singleAbstractMethod = getSingleAbstractMethodOrNull(descriptor)
                 ?: throw AssertionError("$descriptor should have a single abstract method")
-            val unsubstitutedFunctionType = SingleAbstractMethodUtils.getFunctionTypeForAbstractMethod(singleAbstractMethod, false)
+            val unsubstitutedFunctionType = getFunctionTypeForAbstractMethod(singleAbstractMethod, false)
             return TypeSubstitutor.create(samType).substitute(unsubstitutedFunctionType, Variance.INVARIANT)
                 ?: throw AssertionError("Failed to substitute function type $unsubstitutedFunctionType corresponding to $samType")
         }
