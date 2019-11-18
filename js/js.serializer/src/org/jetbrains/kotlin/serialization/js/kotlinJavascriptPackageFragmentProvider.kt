@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.descriptors.*
 import org.jetbrains.kotlin.descriptors.deserialization.PlatformDependentDeclarationFilter
 import org.jetbrains.kotlin.descriptors.impl.EmptyPackageFragmentDescriptor
 import org.jetbrains.kotlin.incremental.components.LookupTracker
+import org.jetbrains.kotlin.load.kotlin.sam.SamConversionResolverImpl
 import org.jetbrains.kotlin.metadata.ProtoBuf
 import org.jetbrains.kotlin.metadata.deserialization.NameResolverImpl
 import org.jetbrains.kotlin.metadata.js.JsProtoBuf
@@ -79,7 +80,8 @@ fun createKotlinJavascriptPackageFragmentProvider(
         notFoundClasses,
         ContractDeserializerImpl(configuration, storageManager),
         platformDependentDeclarationFilter = PlatformDependentDeclarationFilter.NoPlatformDependent,
-        extensionRegistryLite = JsSerializerProtocol.extensionRegistry
+        extensionRegistryLite = JsSerializerProtocol.extensionRegistry,
+        samConversionResolver = SamConversionResolverImpl(storageManager, samWithReceiverResolvers = emptyList())
     )
 
     for (packageFragment in packageFragments.filterIsInstance<KotlinJavascriptPackageFragment>()) {

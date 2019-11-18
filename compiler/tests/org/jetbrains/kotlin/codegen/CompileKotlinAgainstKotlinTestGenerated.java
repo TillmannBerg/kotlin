@@ -333,6 +333,11 @@ public class CompileKotlinAgainstKotlinTestGenerated extends AbstractCompileKotl
         runTest("compiler/testData/compileKotlinAgainstKotlin/unsignedTypesInAnnotations.kt");
     }
 
+    @TestMetadata("useDeserializedFunInterface.kt")
+    public void testUseDeserializedFunInterface() throws Exception {
+        runTest("compiler/testData/compileKotlinAgainstKotlin/useDeserializedFunInterface.kt");
+    }
+
     @TestMetadata("compiler/testData/compileKotlinAgainstKotlin/coroutines")
     @TestDataPath("$PROJECT_ROOT")
     @RunWith(JUnit3RunnerWithInners.class)

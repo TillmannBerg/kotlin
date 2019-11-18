@@ -23,6 +23,7 @@ import org.jetbrains.kotlin.library.metadata.KlibMetadataSerializerProtocol
 import org.jetbrains.kotlin.library.metadata.PackageAccessHandler
 import org.jetbrains.kotlin.library.metadata.parseModuleHeader
 import org.jetbrains.kotlin.library.unresolvedDependencies
+import org.jetbrains.kotlin.load.kotlin.sam.SamConversionResolverImpl
 import org.jetbrains.kotlin.name.FqName
 import org.jetbrains.kotlin.name.Name
 import org.jetbrains.kotlin.resolve.CompilerDeserializationConfiguration
@@ -150,7 +151,8 @@ class KlibMetadataModuleDescriptorFactoryImpl(
             emptyList(),
             notFoundClasses,
             ContractDeserializerImpl(configuration, storageManager),
-            extensionRegistryLite = KlibMetadataSerializerProtocol.extensionRegistry
+            extensionRegistryLite = KlibMetadataSerializerProtocol.extensionRegistry,
+            samConversionResolver = SamConversionResolverImpl(storageManager, samWithReceiverResolvers = emptyList())
         )
 
         fragmentsToInitialize.forEach {
