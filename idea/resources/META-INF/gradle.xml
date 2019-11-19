@@ -13,7 +13,7 @@
     </extensions>
 
     <extensions defaultExtensionNs="org.jetbrains.kotlin.scripting.idea">
-        <listener order="first" implementation="org.jetbrains.kotlin.idea.script.GradleScriptListener"/>
+        <listener order="first" implementation="org.jetbrains.kotlin.idea.scripting.gradle.GradleScriptListener"/>
         <loader order="first" implementation="org.jetbrains.kotlin.idea.script.GradleScriptConfigurationLoader"/>
     </extensions>
 
