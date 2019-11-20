@@ -167,11 +167,18 @@ class ExpressionCodegen(
         return StackValue.onStack(type, irType.toKotlinType())
     }
 
-    internal fun genOrGetLocal(expression: IrExpression, data: BlockInfo): StackValue =
-        if (expression is IrGetValue)
+    internal fun genOrGetLocal(expression: IrExpression, data: BlockInfo): StackValue {
+        if (expression is IrTypeOperatorCall && expression.operator == IrTypeOperator.IMPLICIT_CAST) {
+            if (typeMapper.mapType(expression.type) == typeMapper.mapType(expression.argument.type)) {
+                return genOrGetLocal(expression.argument, data)
+            }
+        }
+
+        return if (expression is IrGetValue)
             StackValue.local(findLocalIndex(expression.symbol), frameMap.typeOf(expression.symbol), expression.type.toKotlinType())
         else
             gen(expression, typeMapper.mapType(expression.type), expression.type, data)
+    }
 
     fun generate() {
         mv.visitCode()
