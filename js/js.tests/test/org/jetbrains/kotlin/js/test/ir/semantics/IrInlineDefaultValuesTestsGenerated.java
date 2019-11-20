@@ -119,6 +119,11 @@ public class IrInlineDefaultValuesTestsGenerated extends AbstractIrInlineDefault
         runTest("compiler/testData/codegen/boxInline/defaultValues/kt5685.kt");
     }
 
+    @TestMetadata("privateDefaultCall.kt")
+    public void testPrivateDefaultCall() throws Exception {
+        runTest("compiler/testData/codegen/boxInline/defaultValues/privateDefaultCall.kt");
+    }
+
     @TestMetadata("simpleDefaultMethod.kt")
     public void testSimpleDefaultMethod() throws Exception {
         runTest("compiler/testData/codegen/boxInline/defaultValues/simpleDefaultMethod.kt");
